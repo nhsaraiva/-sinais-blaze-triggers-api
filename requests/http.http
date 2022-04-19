@@ -1,0 +1,60 @@
+### CONFIGURATION CREATE
+POST http://localhost:3334/configurations/read
+Content-Type: application/json
+
+{
+
+}
+
+### CONFIGURATION UPDATE
+POST http://localhost:3334/configurations/update
+Content-Type: application/json
+
+{
+
+}
+
+### TRIGGER INDEX
+
+POST http://localhost:3334/triggers/index
+Content-Type: application/json
+
+{
+
+}
+
+### TRIGGER CREATE
+
+POST http://localhost:3334/triggers/create
+Content-Type: application/json
+
+{
+
+}
+
+### TRIGGER DELETE
+
+POST http://localhost:3334/triggers/delete/idzão
+Content-Type: application/json
+
+{
+
+}
+
+### TRIGGER READ
+
+POST http://localhost:3334/triggers/read/idzão
+Content-Type: application/json
+
+{
+
+}
+
+### TRIGGER UPDATE
+
+POST http://localhost:3334/triggers/update/idzão
+Content-Type: application/json
+
+{
+
+}

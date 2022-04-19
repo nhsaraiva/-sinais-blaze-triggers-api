@@ -7,5 +7,4 @@ const routes = Router()
 routes.use('/configurations', configurationsRoutes);
 routes.use('/triggers', triggersRoutes);
 
-
 export default routes;
