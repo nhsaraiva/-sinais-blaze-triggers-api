@@ -21,7 +21,7 @@ model User {
 model Configuration {
   id                  String @id @default(uuid())
   user_id             String @unique
-  telegram_channel_id Int?
+  telegram_channel_id BigInt?
   max_triggers        Int    @default(10)
   user                User   @relation(fields: [user_id], references: [id])
 }

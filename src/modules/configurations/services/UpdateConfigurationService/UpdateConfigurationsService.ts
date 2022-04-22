@@ -1,3 +1,4 @@
+import HasChatAccess from "../../../../shared/providers/bot/HasChatAccess";
 import IUserRepository from "../../../sessions/domain/entities/IUserRepository";
 import IConfiguration from "../../domain/entitites/IConfiguration";
 import IConfigurationRespository from "../../domain/repositories/IConfigurationRespository";
@@ -13,6 +14,14 @@ class UpdateConfigurationsService {
 
         if (!user) {
             throw new Error("User not found");
+        }
+
+        const hasChatAccessService = new  HasChatAccess();
+        
+        const hasChatAccess = await hasChatAccessService.execute(chatIdTelegram)
+
+        if (!hasChatAccess) {
+            throw new Error("Bot not has access to this chat");            
         }
 
         const configuration = await this.configurationRepository.update(chatIdTelegram, userId);
