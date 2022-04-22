@@ -14,8 +14,8 @@ configurationsRoutes.post(
     '/update',
     celebrate({
         [Segments.BODY]: {
-            bot_token: Joi.string().required(),
-            channel_id: Joi.number().required()
+            telegram_channel_id: Joi.number().required(),
+            user_id: Joi.string().required()
         }
     }),
     updateController.execute

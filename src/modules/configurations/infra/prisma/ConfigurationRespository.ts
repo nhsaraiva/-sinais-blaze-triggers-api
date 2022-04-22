@@ -2,7 +2,7 @@ import IConfiguration from "../../domain/entitites/IConfiguration";
 import IConfigurationRespository from "../../domain/repositories/IConfigurationRespository";
 import prisma from "../../../../shared/prisma/prisma";
 
-class ConfigurationRespository implements IConfigurationRespository{
+class ConfigurationRespository implements IConfigurationRespository {
     async findOrCreateByUserId(userId: string): Promise<IConfiguration> {
         let configurationByUser = await prisma.configuration.findUnique({
             where: {
@@ -19,6 +19,22 @@ class ConfigurationRespository implements IConfigurationRespository{
         }
 
         return configurationByUser;
+    }
+
+
+    async update(chatIdTelegram: number, userId: string): Promise<IConfiguration> {
+        const configuration = await this.findOrCreateByUserId(userId);
+
+        const newConfiguration = await prisma.configuration.update({
+            where: {
+                id: configuration.id,
+            },
+            data: {
+                telegram_channel_id: chatIdTelegram
+            }
+        })
+
+        return newConfiguration;
     }
 
 }
