@@ -3,7 +3,7 @@ import { Router } from "express";
 import CreateTriggerController from "../controllers/CreateTriggerController";
 import DeleteTriggerController from "../controllers/DeleteTriggerController";
 import IndexTriggerController from "../controllers/IndexTriggerController";
-import ReadTriggerController from "../controllers/ReadTriggerController";
+import GetTriggerController from "../controllers/GetTriggerController";
 import UpdateTriggerController from "../controllers/UpdateTriggerController";
 
 const triggersRoutes = Router();
@@ -11,7 +11,7 @@ const triggersRoutes = Router();
 const createController = new CreateTriggerController();
 const deleteController = new DeleteTriggerController();
 const indexController = new IndexTriggerController();
-const readController = new ReadTriggerController();
+const getController = new GetTriggerController();
 const updateController = new UpdateTriggerController();
 
 triggersRoutes.post('/index', indexController.execute);
@@ -41,21 +41,23 @@ triggersRoutes.post(
 
 
 triggersRoutes.post(
-    '/read/:id',
+    '/get/:id',
     celebrate({
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required()
         }
     }),
-    readController.execute
+    getController.execute
 );
 
 triggersRoutes.post(
     '/update/:id',
     celebrate({
         [Segments.BODY]: {
+            title: Joi.string().required(),
             sequence: Joi.string().required(),
-            message_on_trigged: Joi.string().required()
+            message: Joi.string().required(),
+            user_id: Joi.string().required(),
         },
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required()

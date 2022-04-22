@@ -26,11 +26,29 @@ class TriggerRepository implements ITriggerRepository {
         })
     }
 
+    async findByIdAndUserId(id: string, userId: string): Promise<ITrigger | null> {
+        return await prisma.trigger.findFirst({
+            where: {
+                id,
+                user_id: userId
+            }
+        })
+    }
+
     async delete(id: string): Promise<void> {
         await prisma.trigger.delete({
             where: {
                 id
             }
+        });
+    }
+
+    async update(id: string, data: ITriggerRequest): Promise<ITrigger> {
+        return await prisma.trigger.update({
+            where: {
+                id
+            },
+            data
         });
     }
 }
