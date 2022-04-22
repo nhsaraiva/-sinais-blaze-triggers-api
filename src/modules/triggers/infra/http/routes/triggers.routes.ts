@@ -20,8 +20,10 @@ triggersRoutes.post(
     '/create',
     celebrate({
         [Segments.BODY]: {
+            title: Joi.string().required(),
             sequence: Joi.string().required(),
-            message_on_trigged: Joi.string().required()
+            message: Joi.string().required(),
+            user_id: Joi.string().required(),
         }
     }),
     createController.execute
