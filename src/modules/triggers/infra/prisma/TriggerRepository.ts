@@ -11,10 +11,26 @@ class TriggerRepository implements ITriggerRepository {
             }
         });
     }
-    
+
     async create(data: ITriggerRequest): Promise<ITrigger> {
         return await prisma.trigger.create({
             data
+        });
+    }
+
+    async findById(id: string): Promise<ITrigger | null> {
+        return await prisma.trigger.findUnique({
+            where: {
+                id
+            }
+        })
+    }
+
+    async delete(id: string): Promise<void> {
+        await prisma.trigger.delete({
+            where: {
+                id
+            }
         });
     }
 }
