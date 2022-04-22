@@ -18,7 +18,12 @@ class ConfigurationRespository implements IConfigurationRespository {
             })
         }
 
-        return configurationByUser;
+        return {
+            id: configurationByUser.id,
+            max_triggers: configurationByUser.max_triggers,
+            telegram_channel_id: Number(configurationByUser.telegram_channel_id),
+            user_id: configurationByUser.user_id,
+        };
     }
 
 
@@ -34,7 +39,12 @@ class ConfigurationRespository implements IConfigurationRespository {
             }
         })
 
-        return newConfiguration;
+        return {
+            id: newConfiguration.id,
+            max_triggers: newConfiguration.max_triggers,
+            telegram_channel_id: Number(newConfiguration.telegram_channel_id),
+            user_id: newConfiguration.user_id,
+        };
     }
 
 }
