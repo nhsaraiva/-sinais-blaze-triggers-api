@@ -19,18 +19,19 @@ model User {
 }
 
 model Configuration {
-  id                  String @id @default(uuid())
-  user_id             String @unique
+  id                  String  @id @default(uuid())
+  user_id             String  @unique
   telegram_channel_id BigInt?
-  max_triggers        Int    @default(10)
-  user                User   @relation(fields: [user_id], references: [id])
+  max_triggers        Int     @default(10)
+  user                User    @relation(fields: [user_id], references: [id])
 }
 
 model Trigger {
-  id       String @id @default(uuid())
-  title    String
-  sequence String
-  message  String @db.Text
-  user_id  String
-  user     User   @relation(fields: [user_id], references: [id])
+  id         String   @id @default(uuid())
+  title      String
+  sequence   String
+  message    String   @db.Text
+  user_id    String
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id])
 }

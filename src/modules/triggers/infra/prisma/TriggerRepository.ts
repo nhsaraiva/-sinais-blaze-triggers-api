@@ -8,6 +8,9 @@ class TriggerRepository implements ITriggerRepository {
         return await prisma.trigger.findMany({
             where: {
                 user_id: userId
+            },
+            orderBy: {
+                created_at: 'desc'
             }
         });
     }
