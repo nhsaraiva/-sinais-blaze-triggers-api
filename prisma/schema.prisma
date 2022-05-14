@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgres"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -15,7 +15,9 @@ model User {
   email         String         @unique
   password      String
   triggers      Trigger[]
+  signal_sended Boolean        @default(false)
   configuration Configuration?
+  signals       Signal[]
 }
 
 model Configuration {
@@ -23,15 +25,33 @@ model Configuration {
   user_id             String  @unique
   telegram_channel_id BigInt?
   max_triggers        Int     @default(10)
+  show_placar         Boolean @default(false)
   user                User    @relation(fields: [user_id], references: [id])
 }
 
 model Trigger {
+  id           String    @id @default(uuid())
+  title        String
+  sequence     String
+  message      String    @db.Text
+  win_message  String?   @db.Text
+  loss_message String?   @db.Text
+  user_id      String
+  win_colors   String
+  gales        Int       @default(0)
+  created_at   DateTime  @default(now())
+  deleted_at   DateTime?
+  user         User      @relation(fields: [user_id], references: [id])
+  signals      Signal[]
+}
+
+model Signal {
   id         String   @id @default(uuid())
-  title      String
-  sequence   String
-  message    String   @db.Text
-  user_id    String
+  trigger_id String
+  user_id    String?
+  count_gale Int
+  has_won    Boolean?
   created_at DateTime @default(now())
-  user       User     @relation(fields: [user_id], references: [id])
+  user       User?     @relation(fields: [user_id], references: [id])
+  trigger    Trigger  @relation(fields: [trigger_id], references: [id])
 }

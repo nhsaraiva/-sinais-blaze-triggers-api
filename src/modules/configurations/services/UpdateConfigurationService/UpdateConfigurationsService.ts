@@ -9,7 +9,7 @@ class UpdateConfigurationsService {
         private userRepository: IUserRepository,
     ) { }
 
-    async execute(chatIdTelegram: number, userId: string): Promise<IConfiguration> {
+    async execute(chatIdTelegram: number, userId: string, showPlacar: boolean): Promise<IConfiguration> {
         const user = await this.userRepository.findById(userId);
 
         if (!user) {
@@ -24,7 +24,7 @@ class UpdateConfigurationsService {
             throw new Error("Bot not has access to this chat");            
         }
 
-        const configuration = await this.configurationRepository.update(chatIdTelegram, userId);
+        const configuration = await this.configurationRepository.update(chatIdTelegram, userId, showPlacar);
 
         return configuration;
 

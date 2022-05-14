@@ -6,19 +6,31 @@ import TriggerRepository from "../../prisma/TriggerRepository";
 class UpdateTriggerController {
     async execute(request: Request, response: Response): Promise<Response> {
         try {
-            const { user_id } = request.body;
+            const { user_id } = request.body;        
 
-            const { message, sequence, title } = request.body;
+            const {
+                message,
+                sequence,
+                title,
+                win_colors,
+                win_message,
+                loss_message,
+                gales
+            } = request.body;
 
             const { id } = request.params;
 
-            const createTriggerService = new UpdateTriggerService(new TriggerRepository(), new UserRepository());
+            const updateTriggerService = new UpdateTriggerService(new TriggerRepository(), new UserRepository());
 
-            const trigger = await createTriggerService.execute(id, {
+            const trigger = await updateTriggerService.execute(id, {
                 user_id,
                 message,
                 sequence,
-                title
+                title,
+                win_colors,
+                win_message,
+                loss_message,
+                gales
             });
 
             return response.json({ success: true, data: trigger });

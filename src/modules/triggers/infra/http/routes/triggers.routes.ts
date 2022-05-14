@@ -23,7 +23,11 @@ triggersRoutes.post(
             title: Joi.string().required(),
             sequence: Joi.string().required(),
             message: Joi.string().required(),
+            win_colors: Joi.string().required(),
             user_id: Joi.string().required(),
+            win_message: Joi.string(),
+            loss_message: Joi.string(),
+            gales: Joi.number().min(0),
         }
     }),
     createController.execute
@@ -57,7 +61,11 @@ triggersRoutes.post(
             title: Joi.string().required(),
             sequence: Joi.string().required(),
             message: Joi.string().required(),
+            win_colors: Joi.string().required(),
             user_id: Joi.string().required(),
+            win_message: Joi.string(),
+            loss_message: Joi.string(),
+            gales: Joi.number().min(0),
         },
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required()

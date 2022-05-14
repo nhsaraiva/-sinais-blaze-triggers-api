@@ -15,7 +15,8 @@ configurationsRoutes.post(
     celebrate({
         [Segments.BODY]: {
             telegram_channel_id: Joi.number().required(),
-            user_id: Joi.string().required()
+            user_id: Joi.string().required(),
+            show_placar: Joi.boolean().required()
         }
     }),
     updateController.execute

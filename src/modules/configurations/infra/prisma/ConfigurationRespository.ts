@@ -23,11 +23,12 @@ class ConfigurationRespository implements IConfigurationRespository {
             max_triggers: configurationByUser.max_triggers,
             telegram_channel_id: Number(configurationByUser.telegram_channel_id),
             user_id: configurationByUser.user_id,
+            show_placar: configurationByUser.show_placar
         };
     }
 
 
-    async update(chatIdTelegram: number, userId: string): Promise<IConfiguration> {
+    async update(chatIdTelegram: number, userId: string, show_placar: boolean): Promise<IConfiguration> {
         const configuration = await this.findOrCreateByUserId(userId);
 
         const newConfiguration = await prisma.configuration.update({
@@ -35,7 +36,8 @@ class ConfigurationRespository implements IConfigurationRespository {
                 id: configuration.id,
             },
             data: {
-                telegram_channel_id: chatIdTelegram
+                telegram_channel_id: chatIdTelegram,
+                show_placar: show_placar
             }
         })
 
@@ -44,6 +46,7 @@ class ConfigurationRespository implements IConfigurationRespository {
             max_triggers: newConfiguration.max_triggers,
             telegram_channel_id: Number(newConfiguration.telegram_channel_id),
             user_id: newConfiguration.user_id,
+            show_placar: newConfiguration.show_placar
         };
     }
 

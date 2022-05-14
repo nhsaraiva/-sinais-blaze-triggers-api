@@ -7,7 +7,8 @@ class TriggerRepository implements ITriggerRepository {
     async index(userId: string): Promise<ITrigger[] | null> {
         return await prisma.trigger.findMany({
             where: {
-                user_id: userId
+                user_id: userId,
+                deleted_at: null
             },
             orderBy: {
                 created_at: 'desc'
@@ -33,15 +34,19 @@ class TriggerRepository implements ITriggerRepository {
         return await prisma.trigger.findFirst({
             where: {
                 id,
-                user_id: userId
+                user_id: userId,
+                deleted_at: null
             }
         })
     }
 
     async delete(id: string): Promise<void> {
-        await prisma.trigger.delete({
+        await prisma.trigger.update({
             where: {
                 id
+            },
+            data: {
+                deleted_at: new Date()
             }
         });
     }

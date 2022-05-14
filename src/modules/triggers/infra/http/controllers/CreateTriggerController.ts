@@ -9,7 +9,15 @@ class CreateTriggerController {
         try {
             const { user_id } = request.body;
 
-            const { message, sequence, title } = request.body;
+            const {
+                message,
+                sequence,
+                title,
+                win_colors,
+                win_message,
+                loss_message,
+                gales
+            } = request.body;
 
             const createTriggerService = new CreateTriggerService(new TriggerRepository(), new ConfigurationRespository(), new UserRepository());
 
@@ -17,7 +25,11 @@ class CreateTriggerController {
                 user_id,
                 message,
                 sequence,
-                title
+                title,
+                win_colors,
+                win_message,
+                loss_message,
+                gales
             });
 
             return response.json({ success: true, data: trigger });

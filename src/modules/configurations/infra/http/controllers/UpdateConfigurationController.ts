@@ -8,11 +8,11 @@ class UpdateConfigurationController {
         try {
             const { user_id } = request.body;
 
-            const { telegram_channel_id } = request.body;
+            const { telegram_channel_id, show_placar } = request.body;
 
             const readConfigurationsService = new UpdateConfigurationsService(new ConfigurationRespository(), new UserRepository());
 
-            const configuration = await readConfigurationsService.execute(telegram_channel_id, user_id);
+            const configuration = await readConfigurationsService.execute(telegram_channel_id, user_id, show_placar);
 
             return response.json({ success: true, data: configuration });
         } catch (error: any) {

@@ -38,6 +38,16 @@ class CreateTriggerService {
             throw new Error('Invalid sequence');
         }
 
+        const winColors = data.win_colors;
+
+        const winColorsArray = winColors.split('');
+
+        const winColorsPermited = winColorsArray.filter((item) => !permitedSequence.includes(item));
+        
+        if (winColorsPermited.length > 0) {
+            throw new Error('Invalid sequence on win colors');
+        }
+
         const trigger = await this.triggerRepository.create(data);
 
         return trigger;
