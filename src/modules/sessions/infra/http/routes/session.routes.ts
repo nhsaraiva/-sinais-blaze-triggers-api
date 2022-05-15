@@ -14,7 +14,8 @@ sessionRoutes.post(
         [Segments.BODY]: {
             email: Joi.string().email().required(),
             password: Joi.string().min(8).required(),
-            confirm_password: Joi.required().equal('password')
+            confirm_password: Joi.required().valid(Joi.ref('password')),
+            api_token: Joi.string().required()
         }
     }),
     createUserController.execute

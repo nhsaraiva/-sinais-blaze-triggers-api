@@ -5,8 +5,13 @@ import prisma from "../../../../shared/prisma/prisma";
 
 class UserRepository implements IUserRepository {
   async store(createUserData: ICreateUser): Promise<IUser> {
+    const newUser = {
+      ...createUserData,
+      max_triggers: 5
+    }
+
     return await prisma.user.create({
-      data: createUserData
+      data: newUser
     });
   }
 
